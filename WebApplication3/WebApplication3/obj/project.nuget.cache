@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DSjtV0q3z9r62s24o5nbkTBB19pAY6FhDyg0os0gpq5H2GN219/+Bb+E+dhCrYIGNN/mRqrxLer5zt0WM6zVJw==",
+  "dgSpecHash": "iJQUGj9qyWU9HIYO8jTqPnXjlm6YMdiP2kGVrihUm6W4ptvX+f+h881hCeo6tnOQaRHxUTn1qIoOSgutxW3KLw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\New Owner\\source\\repos\\WebApplication3\\WebApplication3\\WebApplication3.csproj",
+  "projectFilePath": "C:\\Users\\New Owner\\source\\private\\WebApplication3\\WebApplication3\\WebApplication3.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\New Owner\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\New Owner\\.nuget\\packages\\microsoft.aspnetcore.authentication.facebook\\5.0.0\\microsoft.aspnetcore.authentication.facebook.5.0.0.nupkg.sha512",

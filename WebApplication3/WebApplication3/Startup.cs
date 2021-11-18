@@ -63,7 +63,9 @@ namespace WebApplication3
 
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
-            
+
+            services.AddDbContext<aspnetWebApplication3Context>(
+                options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
 
         }

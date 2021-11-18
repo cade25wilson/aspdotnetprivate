@@ -12,5 +12,7 @@ namespace WebApplication3.Data
             : base(options)
         {
         }
+
     }
+
 }
