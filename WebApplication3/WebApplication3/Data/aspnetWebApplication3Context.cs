@@ -18,7 +18,13 @@ namespace WebApplication3.Data
         {
         }
 
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
+        public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductImage> ProductImages { get; set; }
 
@@ -35,103 +41,49 @@ namespace WebApplication3.Data
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
+            modelBuilder.Entity<AspNetRole>(entity =>
+            {
+                entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
+                    .IsUnique()
+                    .HasFilter("([NormalizedName] IS NOT NULL)");
+            });
+
             modelBuilder.Entity<AspNetUser>(entity =>
             {
-                entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
-
                 entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
                     .IsUnique()
                     .HasFilter("([NormalizedUserName] IS NOT NULL)");
+            });
 
-                entity.Property(e => e.Email).HasMaxLength(256);
+            modelBuilder.Entity<AspNetUserLogin>(entity =>
+            {
+                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+            });
 
-                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+            modelBuilder.Entity<AspNetUserRole>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.RoleId });
+            });
 
-                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
-
-                entity.Property(e => e.UserName).HasMaxLength(256);
+            modelBuilder.Entity<AspNetUserToken>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.ToTable("Product");
+                entity.Property(e => e.Brand).IsUnicode(false);
 
-                entity.Property(e => e.Brand)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("BRAND");
+                entity.Property(e => e.Category).IsUnicode(false);
 
-                entity.Property(e => e.Category)
-                    .HasMaxLength(30)
-                    .IsUnicode(false)
-                    .HasColumnName("CATEGORY");
+                entity.Property(e => e.Color).IsUnicode(false);
 
-                entity.Property(e => e.Color)
-                    .HasMaxLength(30)
-                    .IsUnicode(false)
-                    .HasColumnName("COLOR");
-
-                entity.Property(e => e.Description).HasMaxLength(4000);
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.PosterId)
-                    .HasMaxLength(450)
-                    .HasColumnName("Poster_ID ");
-
-                entity.Property(e => e.Price)
-                    .HasColumnType("decimal(18, 2)")
-                    .HasColumnName("PRICE");
-
-                entity.Property(e => e.SellEndDate)
-                    .HasColumnType("smalldatetime")
-                    .HasColumnName("SELL END DATE");
-
-                entity.Property(e => e.ShippingMethod)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("SHIPPING METHOD");
-
-                entity.Property(e => e.ShippingPrice)
-                    .HasColumnType("decimal(18, 2)")
-                    .HasColumnName("SHIPPING PRICE");
-
-                entity.HasOne(d => d.Poster)
-                    .WithMany(p => p.Products)
-                    .HasForeignKey(d => d.PosterId)
-                    .HasConstraintName("FK_Product_AspNetUsers_POSTER_ID");
+                entity.Property(e => e.ShippingMethod).IsUnicode(false);
             });
 
             modelBuilder.Entity<ProductImage>(entity =>
             {
-                entity.ToTable("ProductImage");
-
                 entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Image1).HasColumnType("image");
-
-                entity.Property(e => e.Image10).HasColumnType("image");
-
-                entity.Property(e => e.Image2).HasColumnType("image");
-
-                entity.Property(e => e.Image3).HasColumnType("image");
-
-                entity.Property(e => e.Image4).HasColumnType("image");
-
-                entity.Property(e => e.Image5)
-                    .HasColumnType("image")
-                    .HasColumnName("image5");
-
-                entity.Property(e => e.Image6).HasColumnType("image");
-
-                entity.Property(e => e.Image7).HasColumnType("image");
-
-                entity.Property(e => e.Image8).HasColumnType("image");
-
-                entity.Property(e => e.Image9).HasColumnType("image");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductImages)

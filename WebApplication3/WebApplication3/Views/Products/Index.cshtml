@@ -41,7 +41,7 @@
                 @Html.DisplayNameFor(model => model.SellEndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Poster)
+                @Html.DisplayNameFor(model => model.PosterName)
             </th>
             <th></th>
         </tr>
@@ -77,7 +77,7 @@
                 @Html.DisplayFor(modelItem => item.SellEndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Poster.Id)
+                @Html.DisplayFor(modelItem => item.PosterName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
