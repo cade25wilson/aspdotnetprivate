@@ -26,7 +26,6 @@ namespace WebApplication3.Data
         public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<ProductImage> ProductImages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -79,17 +78,6 @@ namespace WebApplication3.Data
                 entity.Property(e => e.Color).IsUnicode(false);
 
                 entity.Property(e => e.ShippingMethod).IsUnicode(false);
-            });
-
-            modelBuilder.Entity<ProductImage>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ProductImages)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductImage_Product");
             });
 
             OnModelCreatingPartial(modelBuilder);

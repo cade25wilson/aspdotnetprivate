@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,17 +14,19 @@ namespace WebApplication3.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly aspnetWebApplication3Context _context;
+        private readonly WebApplication3Context _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public ProductsController(aspnetWebApplication3Context context)
+        public ProductsController(WebApplication3Context context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            this._hostEnvironment = hostEnvironment;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            return View(await _context.Product.ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -33,7 +37,7 @@ namespace WebApplication3.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await _context.Product
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -54,10 +58,21 @@ namespace WebApplication3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Color,Price,Category,Brand,ShippingMethod,ShippingPrice,SellEndDate,PosterName")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Color,Price,Category,Brand,ShippingMethod,ShippingPrice,SellEndDate,PosterName,ImageFile,Image2,Image3,Image4,Image5,Image6,Image7,Image8,Image9,Image10")] Product product)
         {
             if (ModelState.IsValid)
             {
+                //Save image to wwwroot/image
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName);
+                string extension = Path.GetExtension(product.ImageFile.FileName);
+                product.Image1 = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await product.ImageFile.CopyToAsync(fileStream);
+                }
+                // Insert record
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -73,7 +88,7 @@ namespace WebApplication3.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Product.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -86,7 +101,7 @@ namespace WebApplication3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Color,Price,Category,Brand,ShippingMethod,ShippingPrice,SellEndDate,PosterName")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Color,Price,Category,Brand,ShippingMethod,ShippingPrice,SellEndDate,PosterName,Image1,Image2,Image3,Image4,Image5,Image6,Image7,Image8,Image9,Image10")] Product product)
         {
             if (id != product.Id)
             {
@@ -124,7 +139,7 @@ namespace WebApplication3.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await _context.Product
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -139,15 +154,15 @@ namespace WebApplication3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
+            var product = await _context.Product.FindAsync(id);
+            _context.Product.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProductExists(int id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            return _context.Product.Any(e => e.Id == id);
         }
     }
 }

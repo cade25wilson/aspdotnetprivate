@@ -1,4 +1,4 @@
-﻿@model WebApplication3.Models.Product 
+﻿@model WebApplication3.Models.Product
 
 @{
     ViewData["Title"] = "Create";
@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -60,10 +60,58 @@
             </div>
             <div class="form-group">
                 <label asp-for="PosterName" class="control-label"></label>
-                <input asp-for="PosterName" class="form-control"value="@User.Identity.Name" readonly/>
+                <input asp-for="PosterName" class="form-control" />
                 <span asp-validation-for="PosterName" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image2" class="control-label"></label>
+                <input asp-for="Image2" class="form-control" accept="image/*" />
+                <span asp-validation-for="Image2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image3" class="control-label"></label>
+                <input asp-for="Image3" class="form-control" />
+                <span asp-validation-for="Image3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image4" class="control-label"></label>
+                <input asp-for="Image4" class="form-control" />
+                <span asp-validation-for="Image4" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image5" class="control-label"></label>
+                <input asp-for="Image5" class="form-control" />
+                <span asp-validation-for="Image5" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image6" class="control-label"></label>
+                <input asp-for="Image6" class="form-control" />
+                <span asp-validation-for="Image6" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image7" class="control-label"></label>
+                <input asp-for="Image7" class="form-control" />
+                <span asp-validation-for="Image7" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image8" class="control-label"></label>
+                <input asp-for="Image8" class="form-control" />
+                <span asp-validation-for="Image8" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image9" class="control-label"></label>
+                <input asp-for="Image9" class="form-control" />
+                <span asp-validation-for="Image9" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image10" class="control-label"></label>
+                <input asp-for="Image10" class="form-control" />
+                <span asp-validation-for="Image10" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
