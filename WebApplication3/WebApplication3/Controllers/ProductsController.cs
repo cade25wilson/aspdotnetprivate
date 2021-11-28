@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using WebApplication3.Data;
 using WebApplication3.Models;
 
@@ -132,8 +133,9 @@ namespace WebApplication3.Controllers
         }
 
         // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, string poster)
         {
+
             if (id == null)
             {
                 return NotFound();
@@ -164,5 +166,6 @@ namespace WebApplication3.Controllers
         {
             return _context.Product.Any(e => e.Id == id);
         }
+        
     }
 }

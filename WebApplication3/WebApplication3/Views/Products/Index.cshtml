@@ -84,12 +84,20 @@
                 @Html.DisplayFor(modelItem => item.PosterName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image1)
+                <img src="@("~/image/"+item.Image1)" asp-append-version="true" width="150px" height="150px"/>
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+              @if (User.Identity.Name == item.PosterName)
+                {
+                  <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                  <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                  <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                }
+                else
+                {
+                  <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                }
+
             </td>
         </tr>
 }
