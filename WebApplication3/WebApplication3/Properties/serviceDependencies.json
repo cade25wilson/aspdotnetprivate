@@ -7,6 +7,9 @@
     "mssql2": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:WebApplication3Context"
+    },
+    "secrets1": {
+      "type": "secrets"
     }
   }
 }
