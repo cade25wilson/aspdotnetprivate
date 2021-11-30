@@ -61,7 +61,7 @@ namespace WebApplication3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Color,Price,Category,Brand,ShippingMethod,ShippingPrice,SellEndDate,PosterName,ImageFile,Image2,Image3,Image4,Image5,Image6,Image7,Image8,Image9,Image10")] Product product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && product.ImageFile != null)
             {
                 //Save image to wwwroot/image
                 string wwwRootPath = _hostEnvironment.WebRootPath;
@@ -73,6 +73,13 @@ namespace WebApplication3.Controllers
                 {
                     await product.ImageFile.CopyToAsync(fileStream);
                 }
+                // Insert record
+                _context.Add(product);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            else if (ModelState.IsValid && product.ImageFile == null)
+            {
                 // Insert record
                 _context.Add(product);
                 await _context.SaveChangesAsync();
