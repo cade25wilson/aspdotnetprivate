@@ -45,19 +45,64 @@ namespace WebApplication3.Models
         [StringLength(100)]
         [DisplayName("Image 1")]
         public string Image1 { get; set; }
-        public byte[] Image2 { get; set; }
-        public byte[] Image3 { get; set; }
-        public byte[] Image4 { get; set; }
-        [Column("image5")]
-        public byte[] Image5 { get; set; }
-        public byte[] Image6 { get; set; }
-        public byte[] Image7 { get; set; }
-        public byte[] Image8 { get; set; }
-        public byte[] Image9 { get; set; }
-        public byte[] Image10 { get; set; }
+        [StringLength(100)]
+        [DisplayName("Image 2")]
+        public string Image2 { get; set; }
+        [StringLength(100)]
+        [DisplayName("Image 3")]
+        public string Image3 { get; set; }
+        [StringLength(100)]
+        [DisplayName("Image 4")]
+        public string Image4 { get; set; }
+        [StringLength(100)]
+        [DisplayName("Image 5")]
+        public string Image5 { get; set; }
+        [StringLength(100)]
+        [DisplayName("Image 6")]
+        public string Image6 { get; set; }
+        [StringLength(100)]
+        [DisplayName("Image 7")]
+        public string Image7 { get; set; }
+        [StringLength(100)]
+        [DisplayName("Image 8")]
+        public string Image8 { get; set; }
+        [StringLength(100)]
+        [DisplayName("Image 9")]
+        public string Image9 { get; set; }
+        [StringLength(100)]
+        [DisplayName("Image 10")]
+        public string Image10 { get; set; }
 
         [NotMapped]
         [DisplayName("Upload File")]
         public IFormFile ImageFile { get; set; }
+        [NotMapped]
+        [DisplayName("Upload File 2")]
+        public IFormFile ImageFile2 { get; set; }
+        [NotMapped]
+        [DisplayName("Upload File 3")]
+        public IFormFile ImageFile3 { get; set; }
+        [NotMapped]
+        [DisplayName("Upload File 4")]
+        public IFormFile ImageFile4 { get; set; }
+        [NotMapped]
+        [DisplayName("Upload File 5")]
+        public IFormFile ImageFile5 { get; set; }
+        [NotMapped]
+        [DisplayName("Upload File 6")]
+        public IFormFile ImageFile6 { get; set; }
+        [NotMapped]
+        [DisplayName("Upload File 7")]
+        public IFormFile ImageFile7 { get; set; }
+        [NotMapped]
+        [DisplayName("Upload File 8")]
+        public IFormFile ImageFile8 { get; set; }
+        [NotMapped]
+        [DisplayName("Upload File 9")]
+        public IFormFile ImageFile9 { get; set; }
+        [NotMapped]
+        [DisplayName("Upload File 10")]
+        public IFormFile ImageFile10 { get; set; }
+
     }
 }
