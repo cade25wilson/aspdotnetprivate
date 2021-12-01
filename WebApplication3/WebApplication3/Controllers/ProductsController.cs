@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -59,107 +60,188 @@ namespace WebApplication3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Color,Price,Category,Brand,ShippingMethod,ShippingPrice,SellEndDate,PosterName,ImageFile,ImageFile2,ImageFile3,ImageFile4,ImageFile5,ImageFile6,ImageFile7,ImageFile8,ImageFile9,ImageFile10")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Color,Price,Category,Brand,ShippingMethod,ShippingPrice,SellEndDate,PosterName,Image1,ImageFile,Image2,ImageFile2,Image3,ImageFile3,Image4,ImageFile4,Image5,ImageFile5,Image6,ImageFile6,Image7,ImageFile7,Image8,ImageFile8,Image9,ImageFile9,Image10,ImageFile10")] Product product)
         {
+            string wwwRootPath = _hostEnvironment.WebRootPath;
+
             if (ModelState.IsValid && product.ImageFile != null)
             {
                 //Save image to wwwroot/image
-                string wwwRootPath = _hostEnvironment.WebRootPath;
                 string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName);
-                string fileName2 = Path.GetFileNameWithoutExtension(product.ImageFile2.FileName);
-                string fileName3 = Path.GetFileNameWithoutExtension(product.ImageFile3.FileName);
-                string fileName4 = Path.GetFileNameWithoutExtension(product.ImageFile4.FileName);
-                string fileName5 = Path.GetFileNameWithoutExtension(product.ImageFile5.FileName);
-                string fileName6 = Path.GetFileNameWithoutExtension(product.ImageFile6.FileName);
-                string fileName7 = Path.GetFileNameWithoutExtension(product.ImageFile7.FileName);
-                string fileName8 = Path.GetFileNameWithoutExtension(product.ImageFile8.FileName);
-                string fileName9 = Path.GetFileNameWithoutExtension(product.ImageFile9.FileName);
-                string fileName10 = Path.GetFileNameWithoutExtension(product.ImageFile10.FileName);
                 string extension = Path.GetExtension(product.ImageFile.FileName);
-                string extension2 = Path.GetExtension(product.ImageFile2.FileName);
-                string extension3 = Path.GetExtension(product.ImageFile3.FileName);
-                string extension4 = Path.GetExtension(product.ImageFile4.FileName);
-                string extension5 = Path.GetExtension(product.ImageFile5.FileName);
-                string extension6 = Path.GetExtension(product.ImageFile6.FileName);
-                string extension7 = Path.GetExtension(product.ImageFile7.FileName);
-                string extension8 = Path.GetExtension(product.ImageFile8.FileName);
-                string extension9 = Path.GetExtension(product.ImageFile9.FileName);
-                string extension10 = Path.GetExtension(product.ImageFile10.FileName);
                 product.Image1 = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                product.Image2 = fileName2 = fileName2 + DateTime.Now.ToString("yymmssfff") + extension2;
-                product.Image3 = fileName3 = fileName3 + DateTime.Now.ToString("yymmssfff") + extension3;
-                product.Image4 = fileName4 = fileName4 + DateTime.Now.ToString("yymmssfff") + extension4;
-                product.Image5 = fileName5 = fileName5 + DateTime.Now.ToString("yymmssfff") + extension5;
-                product.Image6 = fileName6 = fileName6 + DateTime.Now.ToString("yymmssfff") + extension6;
-                product.Image7 = fileName7 = fileName7 + DateTime.Now.ToString("yymmssfff") + extension7;
-                product.Image8 = fileName8 = fileName8 + DateTime.Now.ToString("yymmssfff") + extension8;
-                product.Image9 = fileName9 = fileName9 + DateTime.Now.ToString("yymmssfff") + extension9;
-                product.Image10 = fileName10 = fileName10 + DateTime.Now.ToString("yymmssfff") + extension10;
                 string path = Path.Combine(wwwRootPath + "/Image/", fileName);
-                string path2 = Path.Combine(wwwRootPath + "/Image/", fileName2);
-                string path3 = Path.Combine(wwwRootPath + "/Image/", fileName3);
-                string path4 = Path.Combine(wwwRootPath + "/Image/", fileName4);
-                string path5 = Path.Combine(wwwRootPath + "/Image/", fileName5);
-                string path6 = Path.Combine(wwwRootPath + "/Image/", fileName6);
-                string path7 = Path.Combine(wwwRootPath + "/Image/", fileName7);
-                string path8 = Path.Combine(wwwRootPath + "/Image/", fileName8);
-                string path9 = Path.Combine(wwwRootPath + "/Image/", fileName9);
-                string path10 = Path.Combine(wwwRootPath + "/Image/", fileName10);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await product.ImageFile.CopyToAsync(fileStream);
                 }
-                using (var fileStream = new FileStream(path2, FileMode.Create))
+            }
+            else if (ModelState.IsValid && product.ImageFile == null)
+            {
+                string path = "blankImage.jpg";
+                product.Image1 = path;
+            }
+
+            if (ModelState.IsValid && product.ImageFile2 != null)
+            {
+                //Save image to wwwroot/image
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile2.FileName);
+                string extension = Path.GetExtension(product.ImageFile2.FileName);
+                product.Image2 = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await product.ImageFile2.CopyToAsync(fileStream);
                 }
-                using (var fileStream = new FileStream(path3, FileMode.Create))
+            }
+            else if (ModelState.IsValid && product.ImageFile2 == null)
+            {
+                string path = "blankImage.jpg";
+                product.Image2 = path;
+            }
+            if (ModelState.IsValid && product.ImageFile3 != null)
+            {
+                //Save image to wwwroot/image
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile3.FileName);
+                string extension = Path.GetExtension(product.ImageFile3.FileName);
+                product.Image3 = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await product.ImageFile3.CopyToAsync(fileStream);
                 }
-                using (var fileStream = new FileStream(path4, FileMode.Create))
+            }
+            else if (ModelState.IsValid && product.ImageFile3 == null)
+            {
+                string path = "blankImage.jpg";
+                product.Image3 = path;
+            }
+            if (ModelState.IsValid && product.ImageFile4 != null)
+            {
+                //Save image to wwwroot/image
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile4.FileName);
+                string extension = Path.GetExtension(product.ImageFile4.FileName);
+                product.Image4 = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await product.ImageFile4.CopyToAsync(fileStream);
                 }
-                using (var fileStream = new FileStream(path5, FileMode.Create))
+            }
+            else if (ModelState.IsValid && product.ImageFile4 == null)
+            {
+                string path = "blankImage.jpg";
+                product.Image4 = path;
+            }
+            if (ModelState.IsValid && product.ImageFile5 != null)
+            {
+                //Save image to wwwroot/image
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile5.FileName);
+                string extension = Path.GetExtension(product.ImageFile5.FileName);
+                product.Image5 = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await product.ImageFile5.CopyToAsync(fileStream);
                 }
-                using (var fileStream = new FileStream(path6, FileMode.Create))
+            }
+            else if (ModelState.IsValid && product.ImageFile5 == null)
+            {
+                string path = "blankImage.jpg";
+                product.Image5 = path;
+            }
+            if (ModelState.IsValid && product.ImageFile6 != null)
+            {
+                //Save image to wwwroot/image
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile6.FileName);
+                string extension = Path.GetExtension(product.ImageFile6.FileName);
+                product.Image6 = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await product.ImageFile6.CopyToAsync(fileStream);
                 }
-                using (var fileStream = new FileStream(path7, FileMode.Create))
+            }
+            else if (ModelState.IsValid && product.ImageFile6 == null)
+            {
+                string path = "blankImage.jpg";
+                product.Image6 = path;
+            }
+            if (ModelState.IsValid && product.ImageFile7 != null)
+            {
+                //Save image to wwwroot/image
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile7.FileName);
+                string extension = Path.GetExtension(product.ImageFile7.FileName);
+                product.Image7 = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await product.ImageFile7.CopyToAsync(fileStream);
                 }
-                using (var fileStream = new FileStream(path8, FileMode.Create))
+            }
+            else if (ModelState.IsValid && product.ImageFile7 == null)
+            {
+                string path = "blankImage.jpg";
+                product.Image7 = path;
+            }
+            if (ModelState.IsValid && product.ImageFile8 != null)
+            {
+                //Save image to wwwroot/image
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile8.FileName);
+                string extension = Path.GetExtension(product.ImageFile8.FileName);
+                product.Image8 = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await product.ImageFile8.CopyToAsync(fileStream);
                 }
-                using (var fileStream = new FileStream(path9, FileMode.Create))
+            }
+            else if (ModelState.IsValid && product.ImageFile8 == null)
+            {
+                string path = "blankImage.jpg";
+                product.Image8 = path;
+            }
+            if (ModelState.IsValid && product.ImageFile9 != null)
+            {
+                //Save image to wwwroot/image
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile9.FileName);
+                string extension = Path.GetExtension(product.ImageFile9.FileName);
+                product.Image9 = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await product.ImageFile9.CopyToAsync(fileStream);
                 }
-                using (var fileStream = new FileStream(path10, FileMode.Create))
+            }
+            else if (ModelState.IsValid && product.ImageFile9 == null)
+            {
+                string path = "blankImage.jpg";
+                product.Image9 = path;
+            }
+            if (ModelState.IsValid && product.ImageFile10 != null)
+            {
+                //Save image to wwwroot/image
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile10.FileName);
+                string extension = Path.GetExtension(product.ImageFile10.FileName);
+                product.Image10 = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await product.ImageFile10.CopyToAsync(fileStream);
                 }
-                // Insert record
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            else if (ModelState.IsValid && product.ImageFile == null && product.ImageFile2 == null && product.ImageFile3 == null && product.ImageFile4 == null && product.ImageFile5 == null && product.ImageFile6 == null && product.ImageFile7 == null && product.ImageFile8 == null && product.ImageFile9 == null && product.ImageFile10 == null)
+            else if (ModelState.IsValid && product.ImageFile10 == null)
             {
-                // Insert record
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                string path = "blankImage.jpg";
+                product.Image10 = path;
             }
-            return View(product);
-        }
 
+            // Insert record
+            _context.Add(product);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+        }
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -248,7 +330,8 @@ namespace WebApplication3.Controllers
             var imagePath8 = Path.Join(_hostEnvironment.WebRootPath, "image", product.Image8);
             var imagePath9 = Path.Join(_hostEnvironment.WebRootPath, "image", product.Image9);
             var imagePath10 = Path.Join(_hostEnvironment.WebRootPath, "image", product.Image10);
-
+             
+            // creating an array for array
             string[] imagePaths = { imagePath, imagePath2, imagePath3, imagePath4, imagePath5, imagePath6, imagePath7, imagePath8, imagePath9, imagePath10 };
             foreach (var p in imagePaths)
             {
