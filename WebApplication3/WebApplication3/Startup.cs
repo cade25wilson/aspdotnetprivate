@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using WebApplication3.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using WebApplication3.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplication3
 {
@@ -67,9 +68,7 @@ namespace WebApplication3
             services.AddDbContext<WebApplication3Context>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("WebApplication3Context")));
 
-            
-
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

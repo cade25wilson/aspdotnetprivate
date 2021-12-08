@@ -515,3 +515,4 @@ C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3
 C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3\obj\Debug\net5.0\ref\WebApplication3.dll
 C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3\obj\Debug\net5.0\WebApplication3.pdb
 C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3\obj\Debug\net5.0\WebApplication3.genruntimeconfig.cache
+C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Manage\Index.cshtml.g.cs

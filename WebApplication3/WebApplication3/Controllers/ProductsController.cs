@@ -249,8 +249,14 @@ namespace WebApplication3.Controllers
             {
                 return NotFound();
             }
-
             var product = await _context.Product.FindAsync(id);
+            var poster = product.PosterName;
+            string strPoster = poster.ToString();
+
+            while (User.Identity.Name != strPoster)
+            {
+                return NotFound();
+            }
             if (product == null)
             {
                 return NotFound();
@@ -294,7 +300,7 @@ namespace WebApplication3.Controllers
         }
 
         // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id, string poster)
+        public async Task<IActionResult> Delete(int? id)
         {
 
             if (id == null)
@@ -304,6 +310,13 @@ namespace WebApplication3.Controllers
 
             var product = await _context.Product
                 .FirstOrDefaultAsync(m => m.Id == id);
+            var poster = product.PosterName;
+            string strPoster = poster.ToString();
+
+            while (User.Identity.Name != strPoster)
+            {
+                return NotFound();
+            }
             if (product == null)
             {
                 return NotFound();
