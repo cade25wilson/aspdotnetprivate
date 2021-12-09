@@ -73,6 +73,11 @@ namespace WebApplication3.Models
         [DisplayName("Image 10")]
         public string Image10 { get; set; }
 
+        [StringLength(20)]
+        [DisplayName("Status")]
+        [Required()]
+        public string ProductActivation { get; set; }
+
         [NotMapped]
         [DisplayName("Upload File")]
         public IFormFile ImageFile { get; set; }
