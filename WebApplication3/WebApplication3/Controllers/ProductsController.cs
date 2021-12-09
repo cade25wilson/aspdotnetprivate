@@ -31,6 +31,12 @@ namespace WebApplication3.Controllers
             return View(await _context.Product.ToListAsync());
         }
 
+        // GET: Products
+        public async Task<IActionResult> UserIndex()
+        {
+            return View(await _context.Product.ToListAsync());
+        }
+
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {

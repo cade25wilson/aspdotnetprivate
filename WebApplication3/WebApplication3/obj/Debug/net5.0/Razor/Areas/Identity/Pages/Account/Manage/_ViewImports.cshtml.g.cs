@@ -49,7 +49,7 @@ using WebApplication3.Areas.Identity.Pages.Account.Manage;
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"54bc7660d200bb21093865dbcf379f20fc31be2b", @"/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"02f8e8a47bd065edae4762abfccd00ac6ee7a6a7", @"/Areas/Identity/Pages/_ViewImports.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"07db3dc63ff3d2a71c68a0814a0e5a5d633f32b8", @"/Areas/Identity/Pages/Account/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6909f9f4ae6018ddecffca417d1cd1e345aea688", @"/Areas/Identity/Pages/Account/_ViewImports.cshtml")]
     public class Areas_Identity_Pages_Account_Manage__ViewImports : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

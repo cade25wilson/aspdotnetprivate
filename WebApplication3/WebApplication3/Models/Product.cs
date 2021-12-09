@@ -37,7 +37,7 @@ namespace WebApplication3.Models
         public string ShippingMethod { get; set; }
         [Column("SHIPPING PRICE", TypeName = "decimal(18, 2)")]
         public decimal ShippingPrice { get; set; }
-        [Column("SELL END DATE", TypeName = "smalldatetime")]
+        [Column("Sale Posted Date", TypeName = "smalldatetime")]
         public DateTime? SellEndDate { get; set; }
         [Required]
         [StringLength(256)]

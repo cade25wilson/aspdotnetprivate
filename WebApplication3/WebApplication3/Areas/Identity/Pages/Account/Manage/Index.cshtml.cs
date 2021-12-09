@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebApplication3.Models;
+using WebApplication3.Data;
 
 namespace WebApplication3.Areas.Identity.Pages.Account.Manage
 {
@@ -16,12 +18,15 @@ namespace WebApplication3.Areas.Identity.Pages.Account.Manage
 
         public IndexModel(
             UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager
+            )
+            
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
+        
         public string Username { get; set; }
 
         [TempData]
