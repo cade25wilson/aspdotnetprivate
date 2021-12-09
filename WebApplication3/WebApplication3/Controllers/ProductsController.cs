@@ -241,6 +241,10 @@ namespace WebApplication3.Controllers
                 string path = "blankImage.jpg";
                 product.Image10 = path;
             }
+            while (product.SellEndDate == null)
+            {
+                product.SellEndDate = DateTime.Now;
+            }
 
             // Insert record
             _context.Add(product);
