@@ -13,6 +13,8 @@ namespace WebApplication3.Data
         {
         }
 
+        public DbSet<WebApplication3.Models.Product> Product { get; set; }
+
     }
 
 }

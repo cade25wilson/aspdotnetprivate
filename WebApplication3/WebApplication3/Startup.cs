@@ -65,9 +65,6 @@ namespace WebApplication3
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
-            services.AddDbContext<WebApplication3Context>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("WebApplication3Context")));
-
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             

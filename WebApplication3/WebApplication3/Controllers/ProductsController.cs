@@ -16,10 +16,10 @@ namespace WebApplication3.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly WebApplication3Context _context;
+        private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        public ProductsController(WebApplication3Context context, IWebHostEnvironment hostEnvironment)
+        public ProductsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             this._hostEnvironment = hostEnvironment;
@@ -82,11 +82,6 @@ namespace WebApplication3.Controllers
                     await product.ImageFile.CopyToAsync(fileStream);
                 }
             }
-            else if (ModelState.IsValid && product.ImageFile == null)
-            {
-                string path = "blankImage.jpg";
-                product.Image1 = path;
-            }
 
             if (ModelState.IsValid && product.ImageFile2 != null)
             {
@@ -100,11 +95,6 @@ namespace WebApplication3.Controllers
                     await product.ImageFile2.CopyToAsync(fileStream);
                 }
             }
-            else if (ModelState.IsValid && product.ImageFile2 == null)
-            {
-                string path = "blankImage.jpg";
-                product.Image2 = path;
-            }
             if (ModelState.IsValid && product.ImageFile3 != null)
             {
                 //Save image to wwwroot/image
@@ -116,11 +106,6 @@ namespace WebApplication3.Controllers
                 {
                     await product.ImageFile3.CopyToAsync(fileStream);
                 }
-            }
-            else if (ModelState.IsValid && product.ImageFile3 == null)
-            {
-                string path = "blankImage.jpg";
-                product.Image3 = path;
             }
             if (ModelState.IsValid && product.ImageFile4 != null)
             {
@@ -134,11 +119,6 @@ namespace WebApplication3.Controllers
                     await product.ImageFile4.CopyToAsync(fileStream);
                 }
             }
-            else if (ModelState.IsValid && product.ImageFile4 == null)
-            {
-                string path = "blankImage.jpg";
-                product.Image4 = path;
-            }
             if (ModelState.IsValid && product.ImageFile5 != null)
             {
                 //Save image to wwwroot/image
@@ -150,11 +130,6 @@ namespace WebApplication3.Controllers
                 {
                     await product.ImageFile5.CopyToAsync(fileStream);
                 }
-            }
-            else if (ModelState.IsValid && product.ImageFile5 == null)
-            {
-                string path = "blankImage.jpg";
-                product.Image5 = path;
             }
             if (ModelState.IsValid && product.ImageFile6 != null)
             {
@@ -168,11 +143,6 @@ namespace WebApplication3.Controllers
                     await product.ImageFile6.CopyToAsync(fileStream);
                 }
             }
-            else if (ModelState.IsValid && product.ImageFile6 == null)
-            {
-                string path = "blankImage.jpg";
-                product.Image6 = path;
-            }
             if (ModelState.IsValid && product.ImageFile7 != null)
             {
                 //Save image to wwwroot/image
@@ -184,11 +154,6 @@ namespace WebApplication3.Controllers
                 {
                     await product.ImageFile7.CopyToAsync(fileStream);
                 }
-            }
-            else if (ModelState.IsValid && product.ImageFile7 == null)
-            {
-                string path = "blankImage.jpg";
-                product.Image7 = path;
             }
             if (ModelState.IsValid && product.ImageFile8 != null)
             {
@@ -202,11 +167,6 @@ namespace WebApplication3.Controllers
                     await product.ImageFile8.CopyToAsync(fileStream);
                 }
             }
-            else if (ModelState.IsValid && product.ImageFile8 == null)
-            {
-                string path = "blankImage.jpg";
-                product.Image8 = path;
-            }
             if (ModelState.IsValid && product.ImageFile9 != null)
             {
                 //Save image to wwwroot/image
@@ -219,11 +179,6 @@ namespace WebApplication3.Controllers
                     await product.ImageFile9.CopyToAsync(fileStream);
                 }
             }
-            else if (ModelState.IsValid && product.ImageFile9 == null)
-            {
-                string path = "blankImage.jpg";
-                product.Image9 = path;
-            }
             if (ModelState.IsValid && product.ImageFile10 != null)
             {
                 //Save image to wwwroot/image
@@ -235,15 +190,6 @@ namespace WebApplication3.Controllers
                 {
                     await product.ImageFile10.CopyToAsync(fileStream);
                 }
-            }
-            else if (ModelState.IsValid && product.ImageFile10 == null)
-            {
-                string path = "blankImage.jpg";
-                product.Image10 = path;
-            }
-            while (product.SellEndDate == null)
-            {
-                product.SellEndDate = DateTime.Now;
             }
 
             // Insert record
@@ -358,11 +304,7 @@ namespace WebApplication3.Controllers
             string[] imagePaths = { imagePath, imagePath2, imagePath3, imagePath4, imagePath5, imagePath6, imagePath7, imagePath8, imagePath9, imagePath10 };
             foreach (var p in imagePaths)
             {
-                if (p == Path.Join(_hostEnvironment.WebRootPath, "image", "blankImage.jpg"))
-                {
-                    Console.WriteLine("do nothing");            
-                }
-                else if (System.IO.File.Exists(p))
+                if(System.IO.File.Exists(p) && p != Path.Join(_hostEnvironment.WebRootPath, "image", "blankimage.jpg"))
                 {
                     System.IO.File.Delete(p);
                 }
