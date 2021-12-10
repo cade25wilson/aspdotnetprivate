@@ -304,11 +304,7 @@ namespace WebApplication3.Controllers
             string[] imagePaths = { imagePath, imagePath2, imagePath3, imagePath4, imagePath5, imagePath6, imagePath7, imagePath8, imagePath9, imagePath10 };
             foreach (var p in imagePaths)
             {
-                if (p == Path.Join(_hostEnvironment.WebRootPath, "image", "blankImage.jpg"))
-                {
-                    Console.WriteLine("do nothing");            
-                }
-                else if (System.IO.File.Exists(p))
+                if(System.IO.File.Exists(p) && p != Path.Join(_hostEnvironment.WebRootPath, "image", "blankimage.jpg"))
                 {
                     System.IO.File.Delete(p);
                 }
