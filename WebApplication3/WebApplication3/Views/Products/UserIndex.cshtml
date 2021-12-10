@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<WebApplication3.Models.Product>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
 
 @{
   ViewData["Title"] = "Index";
@@ -37,10 +39,10 @@
         @Html.DisplayNameFor(model => model.ShippingPrice)
       </th>
       <th>
-        @Html.DisplayNameFor(model => model.SellEndDate)
+        @Html.DisplayNameFor(model => model.SalePostedDate)
       </th>
       <th>
-        @Html.DisplayNameFor(model => model.PosterName)
+        @Html.DisplayNameFor(model => model.PosterId)
       </th>
       <th>
         @Html.DisplayNameFor(model => model.Image1)
@@ -51,7 +53,7 @@
   <tbody>
     @foreach (var item in Model)
     {
-      if (item.PosterName == User.Identity.Name)
+      if (UserManager.GetUserId(User) == item.PosterId)
       {
         <tr>
           <td>
@@ -79,18 +81,18 @@
             @Html.DisplayFor(modelItem => item.ShippingPrice)
           </td>
           <td>
-            @Html.DisplayFor(modelItem => item.SellEndDate)
+            @Html.DisplayFor(modelItem => item.PosterId)
           </td>
           <td>
-            @Html.DisplayFor(modelItem => item.PosterName)
+            @Html.DisplayFor(modelItem => item.PosterId)
           </td>
           <td>
-            <img src="@("~/image/"+item.Image1)" asp-append-version="true" width="150px" height="150px" />
+            <img src="@("~/image/" + item.Image1)" asp-append-version="true" width="150px" height="150px" />
           </td>
           <td>
-            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
             <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
           </td>
         </tr>
       }

@@ -37,41 +37,35 @@ namespace WebApplication3.Models
         public string ShippingMethod { get; set; }
         [Column("SHIPPING PRICE", TypeName = "decimal(18, 2)")]
         public decimal ShippingPrice { get; set; }
-        [Column("Sale Posted Date", TypeName = "smalldatetime")]
-        public DateTime? SellEndDate { get; set; } = DateTime.Now;
+        [Column("Sale Posted Date", TypeName = "date")]
+        public DateTime SalePostedDate { get; set; }
         [Required]
-        [StringLength(256)]
-        public string PosterName { get; set; }
+        [StringLength(450)]
+        public string PosterId { get; set; }
         [StringLength(100)]
-        [DisplayName("Image 1")]
-        public string Image1 { get; set; } = "blankimage.jpg";
+        public string Image1 { get; set; } = "blankImage.jpg";
         [StringLength(100)]
-        [DisplayName("Image 2")]
-        public string Image2 { get; set; } = "blankimage.jpg";
+        public string Image2 { get; set; } = "blankImage.jpg";
         [StringLength(100)]
-        [DisplayName("Image 3")]
-        public string Image3 { get; set; } = "blankimage.jpg";
+        public string Image3 { get; set; } = "blankImage.jpg";
         [StringLength(100)]
-        [DisplayName("Image 4")]
-        public string Image4 { get; set; } = "blankimage.jpg";
+        public string Image4 { get; set; } = "blankImage.jpg";
         [StringLength(100)]
-        [DisplayName("Image 5")]
-        public string Image5 { get; set; } = "blankimage.jpg";
+        public string Image5 { get; set; } = "blankImage.jpg";
         [StringLength(100)]
-        [DisplayName("Image 6")]
-        public string Image6 { get; set; } = "blankimage.jpg";
+        public string Image6 { get; set; } = "blankImage.jpg";
         [StringLength(100)]
-        [DisplayName("Image 7")]
-        public string Image7 { get; set; } = "blankimage.jpg";
+        public string Image7 { get; set; } = "blankImage.jpg";
         [StringLength(100)]
-        [DisplayName("Image 8")]
-        public string Image8 { get; set; } = "blankimage.jpg";
+        public string Image8 { get; set; } = "blankImage.jpg";
         [StringLength(100)]
-        [DisplayName("Image 9")]
-        public string Image9 { get; set; } = "blankimage.jpg";
+        public string Image9 { get; set; } = "blankImage.jpg";
         [StringLength(100)]
-        [DisplayName("Image 10")]
-        public string Image10 { get; set; } = "blankimage.jpg";
+        public string Image10 { get; set; } = "blankImage.jpg";
+        [Required]
+        [StringLength(20)]
+        public string ProductActivation { get; set; }
+
 
         [NotMapped]
         [DisplayName("Upload File")]
@@ -104,5 +98,8 @@ namespace WebApplication3.Models
         [DisplayName("Upload File 10")]
         public IFormFile ImageFile10 { get; set; }
 
+        [ForeignKey(nameof(PosterId))]
+        [InverseProperty(nameof(AspNetUser.Products))]
+        public virtual AspNetUser Poster { get; set; }
     }
 }

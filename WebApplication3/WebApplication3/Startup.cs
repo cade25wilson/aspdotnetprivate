@@ -33,6 +33,11 @@ namespace WebApplication3
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<WebApplication3Context>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("WebApplication3Context")));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,13 +18,16 @@ namespace WebApplication3.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly WebApplication3Context _context;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ProductsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
+
+        public ProductsController(WebApplication3Context context, IWebHostEnvironment hostEnvironment, UserManager<IdentityUser> userManager)
         {
             _context = context;
             this._hostEnvironment = hostEnvironment;
+            _userManager = userManager;
         }
 
         // GET: Products
@@ -32,8 +37,11 @@ namespace WebApplication3.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> UserIndex()
+        public async Task<IActionResult> UserIndex(Product product)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
+            product.PosterId = userId;
+
             return View(await _context.Product.ToListAsync());
         }
 
@@ -70,7 +78,7 @@ namespace WebApplication3.Controllers
         {
             string wwwRootPath = _hostEnvironment.WebRootPath;
 
-            if (ModelState.IsValid && product.ImageFile != null)
+            if (product.ImageFile != null)
             {
                 //Save image to wwwroot/image
                 string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName);
@@ -83,7 +91,7 @@ namespace WebApplication3.Controllers
                 }
             }
 
-            if (ModelState.IsValid && product.ImageFile2 != null)
+            if (product.ImageFile2 != null)
             {
                 //Save image to wwwroot/image
                 string fileName = Path.GetFileNameWithoutExtension(product.ImageFile2.FileName);
@@ -95,7 +103,7 @@ namespace WebApplication3.Controllers
                     await product.ImageFile2.CopyToAsync(fileStream);
                 }
             }
-            if (ModelState.IsValid && product.ImageFile3 != null)
+            if (product.ImageFile3 != null)
             {
                 //Save image to wwwroot/image
                 string fileName = Path.GetFileNameWithoutExtension(product.ImageFile3.FileName);
@@ -107,7 +115,7 @@ namespace WebApplication3.Controllers
                     await product.ImageFile3.CopyToAsync(fileStream);
                 }
             }
-            if (ModelState.IsValid && product.ImageFile4 != null)
+            if (product.ImageFile4 != null)
             {
                 //Save image to wwwroot/image
                 string fileName = Path.GetFileNameWithoutExtension(product.ImageFile4.FileName);
@@ -119,7 +127,7 @@ namespace WebApplication3.Controllers
                     await product.ImageFile4.CopyToAsync(fileStream);
                 }
             }
-            if (ModelState.IsValid && product.ImageFile5 != null)
+            if (product.ImageFile5 != null)
             {
                 //Save image to wwwroot/image
                 string fileName = Path.GetFileNameWithoutExtension(product.ImageFile5.FileName);
@@ -131,7 +139,7 @@ namespace WebApplication3.Controllers
                     await product.ImageFile5.CopyToAsync(fileStream);
                 }
             }
-            if (ModelState.IsValid && product.ImageFile6 != null)
+            if (product.ImageFile6 != null)
             {
                 //Save image to wwwroot/image
                 string fileName = Path.GetFileNameWithoutExtension(product.ImageFile6.FileName);
@@ -143,7 +151,7 @@ namespace WebApplication3.Controllers
                     await product.ImageFile6.CopyToAsync(fileStream);
                 }
             }
-            if (ModelState.IsValid && product.ImageFile7 != null)
+            if (product.ImageFile7 != null)
             {
                 //Save image to wwwroot/image
                 string fileName = Path.GetFileNameWithoutExtension(product.ImageFile7.FileName);
@@ -155,7 +163,7 @@ namespace WebApplication3.Controllers
                     await product.ImageFile7.CopyToAsync(fileStream);
                 }
             }
-            if (ModelState.IsValid && product.ImageFile8 != null)
+            if (product.ImageFile8 != null)
             {
                 //Save image to wwwroot/image
                 string fileName = Path.GetFileNameWithoutExtension(product.ImageFile8.FileName);
@@ -167,7 +175,7 @@ namespace WebApplication3.Controllers
                     await product.ImageFile8.CopyToAsync(fileStream);
                 }
             }
-            if (ModelState.IsValid && product.ImageFile9 != null)
+            if (product.ImageFile9 != null)
             {
                 //Save image to wwwroot/image
                 string fileName = Path.GetFileNameWithoutExtension(product.ImageFile9.FileName);
@@ -179,7 +187,7 @@ namespace WebApplication3.Controllers
                     await product.ImageFile9.CopyToAsync(fileStream);
                 }
             }
-            if (ModelState.IsValid && product.ImageFile10 != null)
+            if (product.ImageFile10 != null)
             {
                 //Save image to wwwroot/image
                 string fileName = Path.GetFileNameWithoutExtension(product.ImageFile10.FileName);
@@ -191,6 +199,10 @@ namespace WebApplication3.Controllers
                     await product.ImageFile10.CopyToAsync(fileStream);
                 }
             }
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
+            product.PosterId = userId;
+            
+
 
             // Insert record
             _context.Add(product);
@@ -206,7 +218,7 @@ namespace WebApplication3.Controllers
                 return NotFound();
             }
             var product = await _context.Product.FindAsync(id);
-            var poster = product.PosterName;
+            var poster = product.PosterId;
             string strPoster = poster.ToString();
 
             while (User.Identity.Name != strPoster)
@@ -266,10 +278,12 @@ namespace WebApplication3.Controllers
 
             var product = await _context.Product
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var poster = product.PosterName;
-            string strPoster = poster.ToString();
+            var posterId = product.PosterId;
+            string strPosterId = posterId.ToString();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            while (User.Identity.Name != strPoster)
+
+            while (userId != strPosterId)
             {
                 return NotFound();
             }
@@ -304,7 +318,7 @@ namespace WebApplication3.Controllers
             string[] imagePaths = { imagePath, imagePath2, imagePath3, imagePath4, imagePath5, imagePath6, imagePath7, imagePath8, imagePath9, imagePath10 };
             foreach (var p in imagePaths)
             {
-                if(System.IO.File.Exists(p) && p != Path.Join(_hostEnvironment.WebRootPath, "image", "blankimage.jpg"))
+                if(System.IO.File.Exists(p) && p != Path.Join(_hostEnvironment.WebRootPath, "image", "blankImage.jpg"))
                 {
                     System.IO.File.Delete(p);
                 }
