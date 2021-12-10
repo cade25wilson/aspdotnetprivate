@@ -17,6 +17,9 @@ namespace WebApplication3.Models
             AspNetUserLogins = new HashSet<AspNetUserLogin>();
             AspNetUserRoles = new HashSet<AspNetUserRole>();
             AspNetUserTokens = new HashSet<AspNetUserToken>();
+            Products = new HashSet<Product>();
+            UserConnectionFollowerUsers = new HashSet<UserConnection>();
+            UserConnectionFollowingUsers = new HashSet<UserConnection>();
         }
 
         [Key]
@@ -49,5 +52,11 @@ namespace WebApplication3.Models
         public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
         [InverseProperty(nameof(AspNetUserToken.User))]
         public virtual ICollection<AspNetUserToken> AspNetUserTokens { get; set; }
+        [InverseProperty(nameof(Product.Poster))]
+        public virtual ICollection<Product> Products { get; set; }
+        [InverseProperty(nameof(UserConnection.FollowerUser))]
+        public virtual ICollection<UserConnection> UserConnectionFollowerUsers { get; set; }
+        [InverseProperty(nameof(UserConnection.FollowingUser))]
+        public virtual ICollection<UserConnection> UserConnectionFollowingUsers { get; set; }
     }
 }

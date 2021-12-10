@@ -12,9 +12,6 @@ namespace WebApplication3.Data
             : base(options)
         {
         }
-
-        public DbSet<WebApplication3.Models.Product> Product { get; set; }
-
     }
 
 }

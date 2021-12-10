@@ -38,10 +38,10 @@
                 @Html.DisplayNameFor(model => model.ShippingPrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SellEndDate)
+                @Html.DisplayNameFor(model => model.SalePostedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PosterName)
+                @Html.DisplayNameFor(model => model.Poster)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Image1)
@@ -78,26 +78,16 @@
                 @Html.DisplayFor(modelItem => item.ShippingPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SellEndDate)
+                @Html.DisplayFor(modelItem => item.PosterId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PosterName)
+                @Html.DisplayFor(modelItem => item.PosterId)
             </td>
             <td>
                 <img src="@("~/image/"+item.Image1)" asp-append-version="true" width="150px" height="150px"/>
             </td>
             <td>
-              @if (User.Identity.Name == item.PosterName)
-                {
-                  <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                  <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                   <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
-                }
-                else
-                {
-                  <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
-                }
-
             </td>
         </tr>
 }
