@@ -16,10 +16,10 @@ namespace WebApplication3.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly WebApplication3Context _context;
+        private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        public ProductsController(WebApplication3Context context, IWebHostEnvironment hostEnvironment)
+        public ProductsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             this._hostEnvironment = hostEnvironment;
