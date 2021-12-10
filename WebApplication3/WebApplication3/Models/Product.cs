@@ -44,34 +44,34 @@ namespace WebApplication3.Models
         public string PosterName { get; set; }
         [StringLength(100)]
         [DisplayName("Image 1")]
-        public string Image1 { get; set; }
+        public string Image1 { get; set; } = "blankimage.jpg";
         [StringLength(100)]
         [DisplayName("Image 2")]
-        public string Image2 { get; set; }
+        public string Image2 { get; set; } = "blankimage.jpg";
         [StringLength(100)]
         [DisplayName("Image 3")]
-        public string Image3 { get; set; }
+        public string Image3 { get; set; } = "blankimage.jpg";
         [StringLength(100)]
         [DisplayName("Image 4")]
-        public string Image4 { get; set; }
+        public string Image4 { get; set; } = "blankimage.jpg";
         [StringLength(100)]
         [DisplayName("Image 5")]
-        public string Image5 { get; set; }
+        public string Image5 { get; set; } = "blankimage.jpg";
         [StringLength(100)]
         [DisplayName("Image 6")]
-        public string Image6 { get; set; }
+        public string Image6 { get; set; } = "blankimage.jpg";
         [StringLength(100)]
         [DisplayName("Image 7")]
-        public string Image7 { get; set; }
+        public string Image7 { get; set; } = "blankimage.jpg";
         [StringLength(100)]
         [DisplayName("Image 8")]
-        public string Image8 { get; set; }
+        public string Image8 { get; set; } = "blankimage.jpg";
         [StringLength(100)]
         [DisplayName("Image 9")]
-        public string Image9 { get; set; }
+        public string Image9 { get; set; } = "blankimage.jpg";
         [StringLength(100)]
         [DisplayName("Image 10")]
-        public string Image10 { get; set; }
+        public string Image10 { get; set; } = "blankimage.jpg";
 
         [NotMapped]
         [DisplayName("Upload File")]
