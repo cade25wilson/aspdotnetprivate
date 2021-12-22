@@ -29,7 +29,6 @@ namespace WebApplication3.Controllers
             this._hostEnvironment = hostEnvironment;
             _userManager = userManager;
         }
-
         // GET: Products
         public async Task<IActionResult> Index()
         {
@@ -220,8 +219,9 @@ namespace WebApplication3.Controllers
             var product = await _context.Product.FindAsync(id);
             var poster = product.PosterId;
             string strPoster = poster.ToString();
+            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier); // will give the user's userName
 
-            while (User.Identity.Name != strPoster)
+            while (userName != strPoster)
             {
                 return NotFound();
             }
