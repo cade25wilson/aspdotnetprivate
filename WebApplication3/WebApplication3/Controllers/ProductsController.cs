@@ -44,6 +44,14 @@ namespace WebApplication3.Controllers
             return View(await _context.Product.ToListAsync());
         }
 
+        public async Task<IActionResult> UserItems(string id)
+        {
+            var list = await _context.Set<Product>().Where(m => m.PosterId == id).ToArrayAsync();
+
+            return View(list);
+        }
+
+
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -219,7 +227,7 @@ namespace WebApplication3.Controllers
             var product = await _context.Product.FindAsync(id);
             var poster = product.PosterId;
             string strPoster = poster.ToString();
-            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier); // will give the user's userName
+            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier); // will give the user's userId
 
             while (userName != strPoster)
             {
