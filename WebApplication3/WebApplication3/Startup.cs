@@ -15,6 +15,7 @@ using WebApplication3.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using WebApplication3.Services;
 using Microsoft.AspNetCore.Http;
+using Stripe;
 
 namespace WebApplication3
 {
@@ -70,14 +71,13 @@ namespace WebApplication3
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
