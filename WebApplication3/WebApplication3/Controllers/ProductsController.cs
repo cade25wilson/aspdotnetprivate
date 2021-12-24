@@ -44,6 +44,17 @@ namespace WebApplication3.Controllers
             return View(await _context.Product.ToListAsync());
         }
 
+        [Route("pay")]
+        public async Task<dynamic> Pay(Models.Payment pm)
+        {
+            return await MakePayment.PayAsync(pm.cardNumber, pm.month, pm.year, pm.cvc, pm.value);
+        }
+
+        public IActionResult Purchase(int id, Models.Payment pm)
+        {
+            return View();
+        }
+
         public async Task<IActionResult> UserItems(string id)
         {
             var list = await _context.Set<Product>().Where(m => m.PosterId == id).ToArrayAsync();
