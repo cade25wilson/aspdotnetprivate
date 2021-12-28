@@ -50,9 +50,13 @@ namespace WebApplication3.Controllers
             return await MakePayment.PayAsync(pm.cardNumber, pm.month, pm.year, pm.cvc, pm.value);
         }
 
-        public IActionResult Purchase(int id, Models.Payment pm)
+        public IActionResult Purchase(decimal id, Models.Payment pm)
         {
-            return View();
+            var m = new Payment();
+            decimal removeDecimal = id * 100;
+            int payment = Convert.ToInt32(removeDecimal);
+            m.value = payment;
+            return View(m);
         }
 
         public async Task<IActionResult> UserItems(string id)
