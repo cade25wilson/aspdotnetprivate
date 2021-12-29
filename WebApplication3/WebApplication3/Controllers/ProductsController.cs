@@ -47,7 +47,9 @@ namespace WebApplication3.Controllers
         [Route("pay")]
         public async Task<dynamic> Pay(Models.Payment pm)
         {
-            return await MakePayment.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value);
+            var returnValue = RedirectToAction("Index", "Home");
+            return await MakePayment.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value, returnValue);
+
         }
 
         public IActionResult Purchase(decimal id, Models.Payment pm)

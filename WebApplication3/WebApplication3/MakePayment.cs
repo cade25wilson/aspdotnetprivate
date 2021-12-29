@@ -1,14 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Stripe;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using WebApplication3.Data;
+using WebApplication3.Models;
 
 namespace WebApplication3
 {
     public class MakePayment
     {
-        public static async Task<dynamic> PayAsync(string cardNumber, int month, int year, string cvc, int value)
+        public static async Task<dynamic> PayAsync(string cardNumber, int month, int year, string cvc, int value, IActionResult returnValue)
         {
             try
             {
@@ -41,10 +52,10 @@ namespace WebApplication3
 
                 if (charge.Paid)
                 {
-                    return "Success";
+                    return returnValue;
                 }
                 else
-                {
+                {                                                                                                                
                     return "Failed";
                 }
             }
