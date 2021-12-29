@@ -27,6 +27,7 @@ namespace WebApplication3.Data
         public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
         public DbSet<WebApplication3.Models.Product> Product { get; set; }
         public virtual DbSet<UserConnection> UserConnections { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -106,6 +107,18 @@ namespace WebApplication3.Data
                     .HasForeignKey(d => d.FollowingUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserConnections_AspNetUsers_UserId");
+            });
+            modelBuilder.Entity<Payment>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Cvc).IsFixedLength(true);
+
+                entity.HasOne(d => d.PayingUser)
+                    .WithMany(p => p.Payments)
+                    .HasForeignKey(d => d.PayingUserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Payment_aspnetusers");
             });
 
             OnModelCreatingPartial(modelBuilder);

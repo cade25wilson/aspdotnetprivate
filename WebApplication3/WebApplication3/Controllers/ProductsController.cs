@@ -47,7 +47,7 @@ namespace WebApplication3.Controllers
         [Route("pay")]
         public async Task<dynamic> Pay(Models.Payment pm)
         {
-            return await MakePayment.PayAsync(pm.cardNumber, pm.month, pm.year, pm.cvc, pm.value);
+            return await MakePayment.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value);
         }
 
         public IActionResult Purchase(decimal id, Models.Payment pm)
@@ -55,7 +55,7 @@ namespace WebApplication3.Controllers
             var m = new Payment();
             decimal removeDecimal = id * 100;
             int payment = Convert.ToInt32(removeDecimal);
-            m.value = payment;
+            m.Value = payment;
             return View(m);
         }
 
