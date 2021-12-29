@@ -47,19 +47,23 @@ namespace WebApplication3.Controllers
         [Route("pay")]
         public async Task<dynamic> Pay(Models.Payment pm)
         {
+            var databaseAdd = _context.Add(pm);
+            await _context.SaveChangesAsync();
             var returnValue = RedirectToAction("Index", "Home");
-            return await MakePayment.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value, returnValue);
+            return await MakePayment.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value, returnValue, databaseAdd);
 
         }
 
         public IActionResult Purchase(decimal id, Models.Payment pm)
         {
             var m = new Payment();
+            m.PayingUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            m.SellingUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             decimal removeDecimal = id * 100;
             int payment = Convert.ToInt32(removeDecimal);
             m.Value = payment;
             return View(m);
-        }
+         }
 
         public async Task<IActionResult> UserItems(string id)
         {

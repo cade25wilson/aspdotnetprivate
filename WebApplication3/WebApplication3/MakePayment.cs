@@ -14,12 +14,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using WebApplication3.Data;
 using WebApplication3.Models;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace WebApplication3
 {
     public class MakePayment
     {
-        public static async Task<dynamic> PayAsync(string cardNumber, int month, int year, string cvc, int value, IActionResult returnValue)
+        public static async Task<dynamic> PayAsync(string cardNumber, int month, int year, string cvc, int value, IActionResult returnValue, EntityEntry databaseAdd)
         {
             try
             {
@@ -52,6 +53,7 @@ namespace WebApplication3
 
                 if (charge.Paid)
                 {
+                    EntityEntry databaseAdd1 = databaseAdd;
                     return returnValue;
                 }
                 else
