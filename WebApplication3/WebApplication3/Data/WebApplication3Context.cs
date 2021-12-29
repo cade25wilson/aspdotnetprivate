@@ -110,7 +110,6 @@ namespace WebApplication3.Data
             });
             modelBuilder.Entity<Payment>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Cvc).IsFixedLength(true);
 

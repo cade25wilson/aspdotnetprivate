@@ -20,12 +20,16 @@ namespace WebApplication3.Models
         [StringLength(450)]
         public string SellingUserId { get; set; }
         [Required]
-        [StringLength(50)]
+        [StringLength(16), MinLength(16)]
         public string CardNumber { get; set; }
+        [Required]
+        [Range(0, 12)]
         public int Month { get; set; }
+        [Required]
+        [Range(2021, 2030)]
         public int Year { get; set; }
         [Required]
-        [StringLength(10)]
+        [Range(0,1000)]
         public string Cvc { get; set; }
         public int Value { get; set; }
 
