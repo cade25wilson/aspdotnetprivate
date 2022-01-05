@@ -29,6 +29,7 @@ namespace WebApplication3.Data
         public virtual DbSet<UserConnection> UserConnections { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -46,7 +47,7 @@ namespace WebApplication3.Data
             {
                 entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
                     .IsUnique()
-                    .HasFilter("([NormalizedName] IS NOT NULL)");
+                    .HasFilter("([NormalizedName] IS NOT NULL)"); 
             });
 
             modelBuilder.Entity<AspNetUser>(entity =>
@@ -118,6 +119,10 @@ namespace WebApplication3.Data
                     .HasForeignKey(d => d.PayingUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Payment_aspnetusers");
+            });
+
+            modelBuilder.Entity<Forum>(entity =>
+            {
             });
 
             OnModelCreatingPartial(modelBuilder);
