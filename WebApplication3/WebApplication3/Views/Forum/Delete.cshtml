@@ -13,12 +13,6 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PostCreatorId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PostCreatorId)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Likes)
         </dt>
         <dd class = "col-sm-10">
@@ -48,6 +42,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Comment)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostCreator)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostCreator.Id)
+        </dd class>
     </dl>
     
     <form asp-action="Delete">

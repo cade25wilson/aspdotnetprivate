@@ -14,9 +14,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PostCreatorId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Likes)
             </th>
             <th>
@@ -31,15 +28,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Comment)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostCreator)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostCreatorId)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Likes)
             </td>
@@ -56,9 +53,11 @@
                 @Html.DisplayFor(modelItem => item.Comment)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                @Html.DisplayFor(modelItem => item.PostCreator.Id)
+            </td>
+            <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <button asp-action="Like" onclick="@item.Likes++">Like</button>
             </td>
         </tr>
 }

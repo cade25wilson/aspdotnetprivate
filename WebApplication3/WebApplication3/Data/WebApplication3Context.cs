@@ -28,6 +28,8 @@ namespace WebApplication3.Data
         public DbSet<WebApplication3.Models.Product> Product { get; set; }
         public virtual DbSet<UserConnection> UserConnections { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<Forum> Forums { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -123,6 +125,11 @@ namespace WebApplication3.Data
 
             modelBuilder.Entity<Forum>(entity =>
             {
+                entity.HasOne(d => d.PostCreator)
+                    .WithMany(p => p.Forums)
+                    .HasForeignKey(d => d.PostCreatorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Forum_AspNetUsers");
             });
 
             OnModelCreatingPartial(modelBuilder);
@@ -130,6 +137,5 @@ namespace WebApplication3.Data
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        public DbSet<WebApplication3.Models.Forum> Forum { get; set; }
     }
 }

@@ -13,11 +13,12 @@ namespace WebApplication3.Models
     {
         public AspNetUser()
         {
-            Payments = new HashSet<Payment>();
             AspNetUserClaims = new HashSet<AspNetUserClaim>();
             AspNetUserLogins = new HashSet<AspNetUserLogin>();
             AspNetUserRoles = new HashSet<AspNetUserRole>();
             AspNetUserTokens = new HashSet<AspNetUserToken>();
+            Forums = new HashSet<Forum>();
+            Payments = new HashSet<Payment>();
             Products = new HashSet<Product>();
             UserConnectionFollowerUsers = new HashSet<UserConnection>();
             UserConnectionFollowingUsers = new HashSet<UserConnection>();
@@ -45,8 +46,6 @@ namespace WebApplication3.Models
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
 
-        [InverseProperty(nameof(Payment.PayingUser))]
-        public virtual ICollection<Payment> Payments { get; set; }
         [InverseProperty(nameof(AspNetUserClaim.User))]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         [InverseProperty(nameof(AspNetUserLogin.User))]
@@ -55,6 +54,10 @@ namespace WebApplication3.Models
         public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
         [InverseProperty(nameof(AspNetUserToken.User))]
         public virtual ICollection<AspNetUserToken> AspNetUserTokens { get; set; }
+        [InverseProperty(nameof(Forum.PostCreator))]
+        public virtual ICollection<Forum> Forums { get; set; }
+        [InverseProperty(nameof(Payment.PayingUser))]
+        public virtual ICollection<Payment> Payments { get; set; }
         [InverseProperty(nameof(Product.Poster))]
         public virtual ICollection<Product> Products { get; set; }
         [InverseProperty(nameof(UserConnection.FollowerUser))]
