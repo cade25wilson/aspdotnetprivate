@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Stripe;
 using WebApplication3.Data;
 using WebApplication3.Models;
 
@@ -36,7 +38,7 @@ namespace WebApplication3.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> UserIndex(Product product)
+        public async Task<IActionResult> UserIndex(Models.Product product)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
             product.PosterId = userId;
@@ -46,7 +48,7 @@ namespace WebApplication3.Controllers
 
         public async Task<IActionResult> UserItems(string id)
         {
-            var list = await _context.Set<Product>().Where(m => m.PosterId == id).ToArrayAsync();
+            var list = await _context.Set<Models.Product>().Where(m => m.PosterId == id).ToArrayAsync();
 
             return View(list);
         }
@@ -73,6 +75,7 @@ namespace WebApplication3.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            ViewBag.StripePublishKey = ConfigurationManager.AppSettings["stripePublishableKey"];
             return View();
         }
 
@@ -81,7 +84,7 @@ namespace WebApplication3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Color,Price,Category,Brand,ShippingMethod,ShippingPrice,SellEndDate,PosterName,Image1,ImageFile,Image2,ImageFile2,Image3,ImageFile3,Image4,ImageFile4,Image5,ImageFile5,Image6,ImageFile6,Image7,ImageFile7,Image8,ImageFile8,Image9,ImageFile9,Image10,ImageFile10")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Color,Price,Category,Brand,ShippingMethod,ShippingPrice,SellEndDate,PosterName,Image1,ImageFile,Image2,ImageFile2,Image3,ImageFile3,Image4,ImageFile4,Image5,ImageFile5,Image6,ImageFile6,Image7,ImageFile7,Image8,ImageFile8,Image9,ImageFile9,Image10,ImageFile10")] Models.Product product)
         {
             string wwwRootPath = _hostEnvironment.WebRootPath;
 
@@ -245,7 +248,7 @@ namespace WebApplication3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Color,Price,Category,Brand,ShippingMethod,ShippingPrice,SellEndDate,PosterName,Image1,Image2,Image3,Image4,Image5,Image6,Image7,Image8,Image9,Image10")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Color,Price,Category,Brand,ShippingMethod,ShippingPrice,SellEndDate,PosterName,Image1,Image2,Image3,Image4,Image5,Image6,Image7,Image8,Image9,Image10")] Models.Product product)
         {
             if (id != product.Id)
             {
@@ -341,6 +344,25 @@ namespace WebApplication3.Controllers
         {
             return _context.Product.Any(e => e.Id == id);
         }
-        
+
+        [HttpPost]
+        public ActionResult Charge(string stripeToken, string stripeEmail)
+        {
+            Stripe.StripeConfiguration.ApiKey = "pk_test_51K9w2vKwDH39ZurYPWrmefBb56PHewYBFv99ONZ8tN1WmXnCNVJ0R0akQaueq2aQFOye4K4eX9xheWew8Wb9WYW200OXUHe1Ry";
+            Stripe.StripeConfiguration.ApiKey = "sk_test_51K9w2vKwDH39ZurYkBSBD4b1FwAES3Pxq95gxxxbEQUJgSpBr19mYAeJrju0mmwykCA6BE9wZHDg0VYZX8SNPjEc00sFsc2LMW";
+
+            var myCharge = new Stripe.ChargeCreateOptions();
+            // always set these properties
+            myCharge.Amount = 200;
+            myCharge.Currency = "USD";
+            myCharge.ReceiptEmail = stripeEmail;
+            myCharge.Description = "Sample Charge";
+            myCharge.Source = stripeToken;
+            myCharge.Capture = true;
+            var chargeService = new Stripe.ChargeService();
+            Charge stripeCharge = chargeService.Create(myCharge);
+            return View();
+        }
+
     }
 }
