@@ -521,3 +521,8 @@ C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3
 C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3\obj\Debug\net5.0\Razor\Views\Products\UserItems.cshtml.g.cs
 C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3\bin\Debug\net5.0\Stripe.net.dll
 C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3\obj\Debug\net5.0\Razor\Views\Products\purchase.cshtml.g.cs
+C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3\obj\Debug\net5.0\Razor\Views\Forum\Create.cshtml.g.cs
+C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3\obj\Debug\net5.0\Razor\Views\Forum\Delete.cshtml.g.cs
+C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3\obj\Debug\net5.0\Razor\Views\Forum\Details.cshtml.g.cs
+C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3\obj\Debug\net5.0\Razor\Views\Forum\Edit.cshtml.g.cs
+C:\Users\New Owner\source\repos\aspdotnetprivate\WebApplication3\WebApplication3\obj\Debug\net5.0\Razor\Views\Forum\Index.cshtml.g.cs

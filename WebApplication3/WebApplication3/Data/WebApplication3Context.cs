@@ -129,5 +129,7 @@ namespace WebApplication3.Data
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<WebApplication3.Models.Forum> Forum { get; set; }
     }
 }
