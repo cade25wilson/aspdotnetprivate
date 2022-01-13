@@ -34,7 +34,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tbody1">
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -56,8 +56,8 @@
                 @Html.DisplayFor(modelItem => item.PostCreator.Id)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <button asp-action="Like" onclick="@item.Likes++">Like</button>
+              <button onclick="@item.Likes+1">like</button>
+              <button onclick="Edit(@item.Id,false)">Dislike</button>  
             </td>
         </tr>
 }

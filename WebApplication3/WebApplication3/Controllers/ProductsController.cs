@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -91,6 +92,7 @@ namespace WebApplication3.Controllers
         }
 
         // GET: Products/Create
+        [Authorize(Roles = "Paid Users")]
         public IActionResult Create()
         {
             return View();

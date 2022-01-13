@@ -29,8 +29,21 @@ namespace WebApplication3.Controllers
             var webApplication3Context = _context.Forums.Include(f => f.PostCreator);
             return View(await webApplication3Context.ToListAsync());
         }
-
-
+        public async Task<List<Forum>> Edit(int id, bool like)
+    {
+            var forum = await _context.Forums.FindAsync(id);
+            if (like)
+            {
+                forum.Likes++;
+            }
+            else
+            {
+                forum.Dislikes++;
+            }
+            _context.Update(forum);
+            await _context.SaveChangesAsync();
+            return _context.Forums.ToList();
+    }
 
         // GET: Forum/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -178,5 +191,6 @@ namespace WebApplication3.Controllers
         {
             return _context.Forums.Any(e => e.Id == id);
         }
+
     }
 }
