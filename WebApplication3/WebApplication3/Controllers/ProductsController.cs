@@ -53,12 +53,10 @@ namespace WebApplication3.Controllers
                 return await MakePayment.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value, returnValue, databaseAdd);
         }
 
-        public IActionResult Purchase(decimal id, Models.Payment pm)
+        public IActionResult Purchase(Models.Payment pm)
         {
             var m = new Payment();
-            m.PayingUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            m.SellingUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            decimal removeDecimal = id * 100;
+            decimal removeDecimal = 200;
             int payment = Convert.ToInt32(removeDecimal);
             m.Value = payment;
             return View(m);

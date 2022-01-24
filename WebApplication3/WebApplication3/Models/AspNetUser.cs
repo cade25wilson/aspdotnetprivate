@@ -13,7 +13,6 @@ namespace WebApplication3.Models
     {
         public AspNetUser()
         {
-            Payments = new HashSet<Payment>();
             AspNetUserClaims = new HashSet<AspNetUserClaim>();
             AspNetUserLogins = new HashSet<AspNetUserLogin>();
             AspNetUserRoles = new HashSet<AspNetUserRole>();
@@ -45,9 +44,6 @@ namespace WebApplication3.Models
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
 
-        [InverseProperty(nameof(Payment.PayingUser))]
-        public virtual ICollection<Payment> Payments { get; set; }
-        [InverseProperty(nameof(AspNetUserClaim.User))]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         [InverseProperty(nameof(AspNetUserLogin.User))]
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }

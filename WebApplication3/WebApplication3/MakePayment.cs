@@ -53,7 +53,6 @@ namespace WebApplication3
 
                 if (charge.Paid)
                 {
-                    EntityEntry databaseAdd1 = databaseAdd;
                     return returnValue;
                 }
                 else

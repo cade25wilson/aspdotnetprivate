@@ -112,12 +112,6 @@ namespace WebApplication3.Data
             {
 
                 entity.Property(e => e.Cvc).IsFixedLength(true);
-
-                entity.HasOne(d => d.PayingUser)
-                    .WithMany(p => p.Payments)
-                    .HasForeignKey(d => d.PayingUserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Payment_aspnetusers");
             });
 
             OnModelCreatingPartial(modelBuilder);

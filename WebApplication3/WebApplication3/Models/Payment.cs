@@ -14,12 +14,6 @@ namespace WebApplication3.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        [StringLength(450)]
-        public string PayingUserId { get; set; }
-        [Required]
-        [StringLength(450)]
-        public string SellingUserId { get; set; }
-        [Required]
         [StringLength(16), MinLength(16)]
         public string CardNumber { get; set; }
         [Required]
@@ -32,9 +26,5 @@ namespace WebApplication3.Models
         [Range(0,1000)]
         public string Cvc { get; set; }
         public int Value { get; set; }
-
-        [ForeignKey(nameof(PayingUserId))]
-        [InverseProperty(nameof(AspNetUser.Payments))]
-        public virtual AspNetUser PayingUser { get; set; }
     }
 }
