@@ -46,26 +46,19 @@ namespace WebApplication3.Controllers
         }
 
         [Route("pay")]
-        public async Task<dynamic> Pay(Models.Payment pm, Models.Credit credit)
+        public async Task<dynamic> Pay(Models.Payment pm)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
-            credit.UserId = userId;
             var databaseAdd = _context.Add(pm);
             await _context.SaveChangesAsync();
-            var databaseAdd2 = _context.Add(credit);
-            var credits = credit.Credits++;
-            await _context.SaveChangesAsync();
             var returnValue = RedirectToAction("Create", "Products");
-            return await MakePayment.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value, returnValue, databaseAdd, userId);
+            return await MakePayment.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value, returnValue, databaseAdd);
         }
 
         public IActionResult Purchase(Models.Payment pm)
         {
             var m = new Payment();
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
-            decimal removeDecimal = 200;
-            int payment = Convert.ToInt32(removeDecimal);
-            m.Value = payment;
+            m.Value = 200;
             return View(m);
          }
 
@@ -96,9 +89,11 @@ namespace WebApplication3.Controllers
         }
 
         // GET: Products/Create
-        // Authorize page making users unable to post without paying
-        public IActionResult Create()
+        public IActionResult Create(Models.Credit credit)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
+            credit.UserId = userId;
+            
             return View();
         }
 

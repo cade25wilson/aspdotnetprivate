@@ -20,7 +20,7 @@ namespace WebApplication3
 {
     public class MakePayment
     {
-        public static async Task<dynamic> PayAsync(string cardNumber, int month, int year, string cvc, int value, IActionResult returnValue, EntityEntry databaseAdd, string id)
+        public static async Task<dynamic> PayAsync(string cardNumber, int month, int year, string cvc, int value, IActionResult returnValue, EntityEntry databaseAdd)
         {
             try
             {
