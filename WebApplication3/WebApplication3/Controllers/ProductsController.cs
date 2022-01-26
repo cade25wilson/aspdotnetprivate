@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -45,17 +46,23 @@ namespace WebApplication3.Controllers
         }
 
         [Route("pay")]
-        public async Task<dynamic> Pay(Models.Payment pm)
+        public async Task<dynamic> Pay(Models.Payment pm, Models.Credit credit)
         {
-                var databaseAdd = _context.Add(pm);
-                await _context.SaveChangesAsync();
-                var returnValue = RedirectToAction("Index", "Home");
-                return await MakePayment.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value, returnValue, databaseAdd);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
+            credit.UserId = userId;
+            var databaseAdd = _context.Add(pm);
+            await _context.SaveChangesAsync();
+            var databaseAdd2 = _context.Add(credit);
+            var credits = credit.Credits++;
+            await _context.SaveChangesAsync();
+            var returnValue = RedirectToAction("Create", "Products");
+            return await MakePayment.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value, returnValue, databaseAdd, userId);
         }
 
         public IActionResult Purchase(Models.Payment pm)
         {
             var m = new Payment();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
             decimal removeDecimal = 200;
             int payment = Convert.ToInt32(removeDecimal);
             m.Value = payment;
@@ -89,6 +96,7 @@ namespace WebApplication3.Controllers
         }
 
         // GET: Products/Create
+        // Authorize page making users unable to post without paying
         public IActionResult Create()
         {
             return View();

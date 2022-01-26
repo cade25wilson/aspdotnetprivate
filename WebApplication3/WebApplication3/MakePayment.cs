@@ -20,7 +20,7 @@ namespace WebApplication3
 {
     public class MakePayment
     {
-        public static async Task<dynamic> PayAsync(string cardNumber, int month, int year, string cvc, int value, IActionResult returnValue, EntityEntry databaseAdd)
+        public static async Task<dynamic> PayAsync(string cardNumber, int month, int year, string cvc, int value, IActionResult returnValue, EntityEntry databaseAdd, string id)
         {
             try
             {
@@ -48,11 +48,13 @@ namespace WebApplication3
                     Source = stripeToken.Id
                 };
 
+
                 var service = new ChargeService();
                 Charge charge = await service.CreateAsync(options);
 
                 if (charge.Paid)
                 {
+
                     return returnValue;
                 }
                 else

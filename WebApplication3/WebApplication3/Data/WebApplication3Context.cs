@@ -29,6 +29,7 @@ namespace WebApplication3.Data
         public virtual DbSet<UserConnection> UserConnections { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

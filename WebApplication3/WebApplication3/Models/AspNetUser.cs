@@ -20,6 +20,7 @@ namespace WebApplication3.Models
             Products = new HashSet<Product>();
             UserConnectionFollowerUsers = new HashSet<UserConnection>();
             UserConnectionFollowingUsers = new HashSet<UserConnection>();
+            Credits = new HashSet<Credit>();
         }
 
         [Key]
@@ -57,5 +58,8 @@ namespace WebApplication3.Models
         public virtual ICollection<UserConnection> UserConnectionFollowerUsers { get; set; }
         [InverseProperty(nameof(UserConnection.FollowingUser))]
         public virtual ICollection<UserConnection> UserConnectionFollowingUsers { get; set; }
+
+        [InverseProperty(nameof(Credit.User))]
+        public virtual ICollection<Credit> Credits { get; set; }
     }
 }
