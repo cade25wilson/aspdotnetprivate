@@ -89,12 +89,18 @@ namespace WebApplication3.Controllers
         }
 
         // GET: Products/Create
-        public IActionResult Create(Models.Credit credit)
+        public IActionResult Create()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
-            credit.UserId = userId;
-            
-            return View();
+            if (userId == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View();
+            }
+
         }
 
         // POST: Products/Create
@@ -355,7 +361,7 @@ namespace WebApplication3.Controllers
 
             _context.Product.Remove(product);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(UserIndex));
         }
 
         private bool ProductExists(int id)
