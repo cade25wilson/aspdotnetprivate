@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -39,29 +40,42 @@ namespace WebApplication3.Controllers
         public async Task<IActionResult> UserIndex(Product product)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
-            product.PosterId = userId;
 
-            return View(await _context.Product.ToListAsync());
+            product.PosterId = userId; //getting products posted by signed in user
+
+            if (userId != null)
+            {
+                return View(await _context.Product.ToListAsync());
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
 
         [Route("pay")]
         public async Task<dynamic> Pay(Models.Payment pm)
         {
-                var databaseAdd = _context.Add(pm);
-                await _context.SaveChangesAsync();
-                var returnValue = RedirectToAction("Index", "Home");
-                return await MakePayment.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value, returnValue, databaseAdd);
+            var databaseAdd = _context.Add(pm);
+            await _context.SaveChangesAsync();
+            var returnValue = RedirectToAction("Create", "Products");
+            return await MakePayment.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value, returnValue, databaseAdd);
         }
 
-        public IActionResult Purchase(decimal id, Models.Payment pm)
+        public IActionResult Purchase(Models.Payment pm)
         {
             var m = new Payment();
-            m.PayingUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            m.SellingUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            decimal removeDecimal = id * 100;
-            int payment = Convert.ToInt32(removeDecimal);
-            m.Value = payment;
-            return View(m);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
+            m.Value = 200;
+            if (userId != null)
+            {
+                return View(m);
+            }
+            else
+            {
+                return NotFound();
+            }
          }
 
         public async Task<IActionResult> UserItems(string id)
@@ -93,7 +107,16 @@ namespace WebApplication3.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
+            if (userId == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View();
+            }
+
         }
 
         // POST: Products/Create
@@ -354,7 +377,7 @@ namespace WebApplication3.Controllers
 
             _context.Product.Remove(product);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(UserIndex));
         }
 
         private bool ProductExists(int id)

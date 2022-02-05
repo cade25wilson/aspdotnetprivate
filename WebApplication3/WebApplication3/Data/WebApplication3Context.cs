@@ -28,6 +28,9 @@ namespace WebApplication3.Data
         public DbSet<WebApplication3.Models.Product> Product { get; set; }
         public virtual DbSet<UserConnection> UserConnections { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<Credit> Credits { get; set; }
+
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -113,12 +116,11 @@ namespace WebApplication3.Data
             {
 
                 entity.Property(e => e.Cvc).IsFixedLength(true);
+            });
 
-                entity.HasOne(d => d.PayingUser)
-                    .WithMany(p => p.Payments)
-                    .HasForeignKey(d => d.PayingUserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Payment_aspnetusers");
+            modelBuilder.Entity<Credit>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Forum>(entity =>

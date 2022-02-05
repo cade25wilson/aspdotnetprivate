@@ -66,6 +66,7 @@ namespace WebApplication3.Models
         [StringLength(20)]
         public string ProductActivation { get; set; }
 
+        public string ContactEmail { get; set; }
 
         [NotMapped]
         [DisplayName("Upload File")]

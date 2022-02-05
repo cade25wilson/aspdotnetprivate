@@ -48,12 +48,13 @@ namespace WebApplication3
                     Source = stripeToken.Id
                 };
 
+
                 var service = new ChargeService();
                 Charge charge = await service.CreateAsync(options);
 
                 if (charge.Paid)
                 {
-                    EntityEntry databaseAdd1 = databaseAdd;
+
                     return returnValue;
                 }
                 else

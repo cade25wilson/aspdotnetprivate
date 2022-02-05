@@ -13,7 +13,6 @@ namespace WebApplication3.Models
     {
         public AspNetUser()
         {
-            Payments = new HashSet<Payment>();
             AspNetUserClaims = new HashSet<AspNetUserClaim>();
             AspNetUserLogins = new HashSet<AspNetUserLogin>();
             AspNetUserRoles = new HashSet<AspNetUserRole>();
@@ -21,6 +20,7 @@ namespace WebApplication3.Models
             Products = new HashSet<Product>();
             UserConnectionFollowerUsers = new HashSet<UserConnection>();
             UserConnectionFollowingUsers = new HashSet<UserConnection>();
+            Credits = new HashSet<Credit>();
         }
 
         [Key]
@@ -45,9 +45,6 @@ namespace WebApplication3.Models
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
 
-        [InverseProperty(nameof(Payment.PayingUser))]
-        public virtual ICollection<Payment> Payments { get; set; }
-        [InverseProperty(nameof(AspNetUserClaim.User))]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         [InverseProperty(nameof(AspNetUserLogin.User))]
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
@@ -61,5 +58,8 @@ namespace WebApplication3.Models
         public virtual ICollection<UserConnection> UserConnectionFollowerUsers { get; set; }
         [InverseProperty(nameof(UserConnection.FollowingUser))]
         public virtual ICollection<UserConnection> UserConnectionFollowingUsers { get; set; }
+
+        [InverseProperty(nameof(Credit.User))]
+        public virtual ICollection<Credit> Credits { get; set; }
     }
 }

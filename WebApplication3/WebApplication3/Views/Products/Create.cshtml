@@ -55,8 +55,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="PosterId" class="control-label"></label>
-                <input asp-for="PosterId" class="form-control" value="@User.Identity.Name" readonly/>
+                <input asp-for="PosterId" class="form-control" value="@User.Identity.Name"readonly/>
                 <span asp-validation-for="PosterId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+              <label asp-for="ContactEmail" class="control-label"></label>
+              <input asp-for="ContactEmail" class="form-control"/>
+              <span asp-validation-for="ContactEmail" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImageFile" class="control-label"></label>
