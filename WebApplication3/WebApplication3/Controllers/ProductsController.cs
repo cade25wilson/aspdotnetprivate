@@ -76,7 +76,7 @@ namespace WebApplication3.Controllers
             {
                 return NotFound();
             }
-         }
+        }
 
         public async Task<IActionResult> UserItems(string id)
         {
@@ -251,7 +251,7 @@ namespace WebApplication3.Controllers
             }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
             product.PosterId = userId;
-            
+
 
 
             // Insert record
@@ -364,12 +364,12 @@ namespace WebApplication3.Controllers
             var imagePath8 = Path.Join(_hostEnvironment.WebRootPath, "image", product.Image8);
             var imagePath9 = Path.Join(_hostEnvironment.WebRootPath, "image", product.Image9);
             var imagePath10 = Path.Join(_hostEnvironment.WebRootPath, "image", product.Image10);
-             
+
             // creating an array for array
             string[] imagePaths = { imagePath, imagePath2, imagePath3, imagePath4, imagePath5, imagePath6, imagePath7, imagePath8, imagePath9, imagePath10 };
             foreach (var p in imagePaths)
             {
-                if(System.IO.File.Exists(p) && p != Path.Join(_hostEnvironment.WebRootPath, "image", "blankImage.jpg"))
+                if (System.IO.File.Exists(p) && p != Path.Join(_hostEnvironment.WebRootPath, "image", "blankImage.jpg"))
                 {
                     System.IO.File.Delete(p);
                 }
@@ -384,6 +384,6 @@ namespace WebApplication3.Controllers
         {
             return _context.Product.Any(e => e.Id == id);
         }
-        
+
     }
 }
