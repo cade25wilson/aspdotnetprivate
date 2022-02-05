@@ -40,9 +40,18 @@ namespace WebApplication3.Controllers
         public async Task<IActionResult> UserIndex(Product product)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
-            product.PosterId = userId;
 
-            return View(await _context.Product.ToListAsync());
+            product.PosterId = userId; //getting products posted by signed in user
+
+            if (userId != null)
+            {
+                return View(await _context.Product.ToListAsync());
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
 
         [Route("pay")]
@@ -59,7 +68,14 @@ namespace WebApplication3.Controllers
             var m = new Payment();
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // will give the user's userId
             m.Value = 200;
-            return View(m);
+            if (userId != null)
+            {
+                return View(m);
+            }
+            else
+            {
+                return NotFound();
+            }
          }
 
         public async Task<IActionResult> UserItems(string id)
